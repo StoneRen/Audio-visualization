@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>audio show</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+  <link rel="stylesheet" href="css/app.css" media="all">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/bulma/0.4.0/css/bulma.min.css">
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="field has-addons">
+      <div class="control  is-expanded">
+        <input class="input" v-model="res" type="text" placeholder="请输入音频资源地址">
+      </div>
+      <div class="control">
+        <a class="button is-info" @click="load">
+          加载
+        </a>
+      </div>
+    </div>
+
+    <div v-if="!isPlaying">
+      预存播放列表: <span class="tag is-info" v-for="m in resList" @click="setRes(m.src)">{{m.name}}</span>
+    </div>
+    <p>状态: {{ status }}</p>
+    <div v-if="seen">
+      <p>声音增益: <input type="range" min="1" max="100" v-model="volume"> {{volume}}%</p>
+      <p>时间线: {{ currentTime | fixed(0) }} / {{audioSource.buffer.duration | fixed(0)}}
+        {{currentTime/audioSource.buffer.duration*100 | fixed(0)}}%
+      </p>
+      <div>
+        <progress class="progress is-small is-link" :value="progress" max="100">{{progress}}%</progress>
+      </div>
+      <div v-if="seen && !isPlaying">
+        <button class="button is-primary" @click="play">{{playText}}</button>
+      </div>
+
+    </div>
+  </div>
+  <canvas id="canvas"></canvas>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>
