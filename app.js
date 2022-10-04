@@ -47,6 +47,9 @@ var app = new Vue({
     }, {
       name: '未闻花名',
       src: 'res/wwhm.mp3'
+    }, {
+      name: '茶汤',
+      src: 'res/chatang.webm'
     }]
   },
   computed: {
